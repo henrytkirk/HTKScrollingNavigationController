@@ -1,0 +1,497 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E1E8054199FF9F300C4B731 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1E8053199FF9F300C4B731 /* Foundation.framework */; };
+		0E1E8056199FF9F300C4B731 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1E8055199FF9F300C4B731 /* CoreGraphics.framework */; };
+		0E1E8058199FF9F300C4B731 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1E8057199FF9F300C4B731 /* UIKit.framework */; };
+		0E1E805E199FF9F300C4B731 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E1E805C199FF9F300C4B731 /* InfoPlist.strings */; };
+		0E1E8060199FF9F300C4B731 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E805F199FF9F300C4B731 /* main.m */; };
+		0E1E8064199FF9F300C4B731 /* HTKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8063199FF9F300C4B731 /* HTKAppDelegate.m */; };
+		0E1E806A199FF9F300C4B731 /* HTKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E8069199FF9F300C4B731 /* HTKViewController.m */; };
+		0E1E806C199FF9F300C4B731 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E1E806B199FF9F300C4B731 /* Images.xcassets */; };
+		0E1E8073199FF9F300C4B731 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1E8072199FF9F300C4B731 /* XCTest.framework */; };
+		0E1E8074199FF9F300C4B731 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1E8053199FF9F300C4B731 /* Foundation.framework */; };
+		0E1E8075199FF9F300C4B731 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1E8057199FF9F300C4B731 /* UIKit.framework */; };
+		0E1E807D199FF9F300C4B731 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E1E807B199FF9F300C4B731 /* InfoPlist.strings */; };
+		0E1E807F199FF9F300C4B731 /* HTKScrollingNavigationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E807E199FF9F300C4B731 /* HTKScrollingNavigationTests.m */; };
+		0E1E808F19A00B1F00C4B731 /* HTKScrollingNavigationCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E808A19A00B1F00C4B731 /* HTKScrollingNavigationCollectionViewLayout.m */; };
+		0E1E809019A00B1F00C4B731 /* HTKScrollingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E808C19A00B1F00C4B731 /* HTKScrollingNavigationController.m */; };
+		0E1E809119A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E808E19A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.m */; };
+		0E1E809419A00E4100C4B731 /* HTKSampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E809319A00E4100C4B731 /* HTKSampleViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0E1E8076199FF9F300C4B731 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E1E8048199FF9F300C4B731 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E1E804F199FF9F300C4B731;
+			remoteInfo = HTKScrollingNavigation;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0E1E8050199FF9F300C4B731 /* HTKScrollingNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HTKScrollingNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E1E8053199FF9F300C4B731 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0E1E8055199FF9F300C4B731 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0E1E8057199FF9F300C4B731 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0E1E805B199FF9F300C4B731 /* HTKScrollingNavigation-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HTKScrollingNavigation-Info.plist"; sourceTree = "<group>"; };
+		0E1E805D199FF9F300C4B731 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E1E805F199FF9F300C4B731 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0E1E8061199FF9F300C4B731 /* HTKScrollingNavigation-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HTKScrollingNavigation-Prefix.pch"; sourceTree = "<group>"; };
+		0E1E8062199FF9F300C4B731 /* HTKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTKAppDelegate.h; sourceTree = "<group>"; };
+		0E1E8063199FF9F300C4B731 /* HTKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTKAppDelegate.m; sourceTree = "<group>"; };
+		0E1E8068199FF9F300C4B731 /* HTKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTKViewController.h; sourceTree = "<group>"; };
+		0E1E8069199FF9F300C4B731 /* HTKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTKViewController.m; sourceTree = "<group>"; };
+		0E1E806B199FF9F300C4B731 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		0E1E8071199FF9F300C4B731 /* HTKScrollingNavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HTKScrollingNavigationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E1E8072199FF9F300C4B731 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		0E1E807A199FF9F300C4B731 /* HTKScrollingNavigationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HTKScrollingNavigationTests-Info.plist"; sourceTree = "<group>"; };
+		0E1E807C199FF9F300C4B731 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E1E807E199FF9F300C4B731 /* HTKScrollingNavigationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTKScrollingNavigationTests.m; sourceTree = "<group>"; };
+		0E1E808919A00B1F00C4B731 /* HTKScrollingNavigationCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTKScrollingNavigationCollectionViewLayout.h; sourceTree = "<group>"; };
+		0E1E808A19A00B1F00C4B731 /* HTKScrollingNavigationCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTKScrollingNavigationCollectionViewLayout.m; sourceTree = "<group>"; };
+		0E1E808B19A00B1F00C4B731 /* HTKScrollingNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTKScrollingNavigationController.h; sourceTree = "<group>"; };
+		0E1E808C19A00B1F00C4B731 /* HTKScrollingNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTKScrollingNavigationController.m; sourceTree = "<group>"; };
+		0E1E808D19A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HTKScrollingNavigationControllerAdditions.h"; sourceTree = "<group>"; };
+		0E1E808E19A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HTKScrollingNavigationControllerAdditions.m"; sourceTree = "<group>"; };
+		0E1E809219A00E4100C4B731 /* HTKSampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTKSampleViewController.h; sourceTree = "<group>"; };
+		0E1E809319A00E4100C4B731 /* HTKSampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTKSampleViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0E1E804D199FF9F300C4B731 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E1E8056199FF9F300C4B731 /* CoreGraphics.framework in Frameworks */,
+				0E1E8058199FF9F300C4B731 /* UIKit.framework in Frameworks */,
+				0E1E8054199FF9F300C4B731 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E1E806E199FF9F300C4B731 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E1E8073199FF9F300C4B731 /* XCTest.framework in Frameworks */,
+				0E1E8075199FF9F300C4B731 /* UIKit.framework in Frameworks */,
+				0E1E8074199FF9F300C4B731 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E1E8047199FF9F300C4B731 = {
+			isa = PBXGroup;
+			children = (
+				0E1E8059199FF9F300C4B731 /* HTKScrollingNavigation */,
+				0E1E8078199FF9F300C4B731 /* HTKScrollingNavigationTests */,
+				0E1E8052199FF9F300C4B731 /* Frameworks */,
+				0E1E8051199FF9F300C4B731 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0E1E8051199FF9F300C4B731 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E1E8050199FF9F300C4B731 /* HTKScrollingNavigation.app */,
+				0E1E8071199FF9F300C4B731 /* HTKScrollingNavigationTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0E1E8052199FF9F300C4B731 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E1E8053199FF9F300C4B731 /* Foundation.framework */,
+				0E1E8055199FF9F300C4B731 /* CoreGraphics.framework */,
+				0E1E8057199FF9F300C4B731 /* UIKit.framework */,
+				0E1E8072199FF9F300C4B731 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0E1E8059199FF9F300C4B731 /* HTKScrollingNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				0E1E808819A00B1F00C4B731 /* HTKScrollingNavigationController */,
+				0E1E8062199FF9F300C4B731 /* HTKAppDelegate.h */,
+				0E1E8063199FF9F300C4B731 /* HTKAppDelegate.m */,
+				0E1E8068199FF9F300C4B731 /* HTKViewController.h */,
+				0E1E8069199FF9F300C4B731 /* HTKViewController.m */,
+				0E1E809219A00E4100C4B731 /* HTKSampleViewController.h */,
+				0E1E809319A00E4100C4B731 /* HTKSampleViewController.m */,
+				0E1E806B199FF9F300C4B731 /* Images.xcassets */,
+				0E1E805A199FF9F300C4B731 /* Supporting Files */,
+			);
+			path = HTKScrollingNavigation;
+			sourceTree = "<group>";
+		};
+		0E1E805A199FF9F300C4B731 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E1E805B199FF9F300C4B731 /* HTKScrollingNavigation-Info.plist */,
+				0E1E805C199FF9F300C4B731 /* InfoPlist.strings */,
+				0E1E805F199FF9F300C4B731 /* main.m */,
+				0E1E8061199FF9F300C4B731 /* HTKScrollingNavigation-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0E1E8078199FF9F300C4B731 /* HTKScrollingNavigationTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E1E807E199FF9F300C4B731 /* HTKScrollingNavigationTests.m */,
+				0E1E8079199FF9F300C4B731 /* Supporting Files */,
+			);
+			path = HTKScrollingNavigationTests;
+			sourceTree = "<group>";
+		};
+		0E1E8079199FF9F300C4B731 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E1E807A199FF9F300C4B731 /* HTKScrollingNavigationTests-Info.plist */,
+				0E1E807B199FF9F300C4B731 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0E1E808819A00B1F00C4B731 /* HTKScrollingNavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				0E1E808919A00B1F00C4B731 /* HTKScrollingNavigationCollectionViewLayout.h */,
+				0E1E808A19A00B1F00C4B731 /* HTKScrollingNavigationCollectionViewLayout.m */,
+				0E1E808B19A00B1F00C4B731 /* HTKScrollingNavigationController.h */,
+				0E1E808C19A00B1F00C4B731 /* HTKScrollingNavigationController.m */,
+				0E1E808D19A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.h */,
+				0E1E808E19A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.m */,
+			);
+			name = HTKScrollingNavigationController;
+			path = ../../HTKScrollingNavigationController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0E1E804F199FF9F300C4B731 /* HTKScrollingNavigation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E1E8082199FF9F300C4B731 /* Build configuration list for PBXNativeTarget "HTKScrollingNavigation" */;
+			buildPhases = (
+				0E1E804C199FF9F300C4B731 /* Sources */,
+				0E1E804D199FF9F300C4B731 /* Frameworks */,
+				0E1E804E199FF9F300C4B731 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HTKScrollingNavigation;
+			productName = HTKScrollingNavigation;
+			productReference = 0E1E8050199FF9F300C4B731 /* HTKScrollingNavigation.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0E1E8070199FF9F300C4B731 /* HTKScrollingNavigationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E1E8085199FF9F300C4B731 /* Build configuration list for PBXNativeTarget "HTKScrollingNavigationTests" */;
+			buildPhases = (
+				0E1E806D199FF9F300C4B731 /* Sources */,
+				0E1E806E199FF9F300C4B731 /* Frameworks */,
+				0E1E806F199FF9F300C4B731 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E1E8077199FF9F300C4B731 /* PBXTargetDependency */,
+			);
+			name = HTKScrollingNavigationTests;
+			productName = HTKScrollingNavigationTests;
+			productReference = 0E1E8071199FF9F300C4B731 /* HTKScrollingNavigationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0E1E8048199FF9F300C4B731 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = HTK;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Henry T Kirk";
+				TargetAttributes = {
+					0E1E8070199FF9F300C4B731 = {
+						TestTargetID = 0E1E804F199FF9F300C4B731;
+					};
+				};
+			};
+			buildConfigurationList = 0E1E804B199FF9F300C4B731 /* Build configuration list for PBXProject "HTKScrollingNavigation" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0E1E8047199FF9F300C4B731;
+			productRefGroup = 0E1E8051199FF9F300C4B731 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0E1E804F199FF9F300C4B731 /* HTKScrollingNavigation */,
+				0E1E8070199FF9F300C4B731 /* HTKScrollingNavigationTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0E1E804E199FF9F300C4B731 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E1E806C199FF9F300C4B731 /* Images.xcassets in Resources */,
+				0E1E805E199FF9F300C4B731 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E1E806F199FF9F300C4B731 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E1E807D199FF9F300C4B731 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0E1E804C199FF9F300C4B731 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E1E809119A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.m in Sources */,
+				0E1E808F19A00B1F00C4B731 /* HTKScrollingNavigationCollectionViewLayout.m in Sources */,
+				0E1E809019A00B1F00C4B731 /* HTKScrollingNavigationController.m in Sources */,
+				0E1E806A199FF9F300C4B731 /* HTKViewController.m in Sources */,
+				0E1E8064199FF9F300C4B731 /* HTKAppDelegate.m in Sources */,
+				0E1E8060199FF9F300C4B731 /* main.m in Sources */,
+				0E1E809419A00E4100C4B731 /* HTKSampleViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E1E806D199FF9F300C4B731 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E1E807F199FF9F300C4B731 /* HTKScrollingNavigationTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0E1E8077199FF9F300C4B731 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E1E804F199FF9F300C4B731 /* HTKScrollingNavigation */;
+			targetProxy = 0E1E8076199FF9F300C4B731 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0E1E805C199FF9F300C4B731 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E1E805D199FF9F300C4B731 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0E1E807B199FF9F300C4B731 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E1E807C199FF9F300C4B731 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0E1E8080199FF9F300C4B731 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		0E1E8081199FF9F300C4B731 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0E1E8083199FF9F300C4B731 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HTKScrollingNavigation/HTKScrollingNavigation-Prefix.pch";
+				INFOPLIST_FILE = "HTKScrollingNavigation/HTKScrollingNavigation-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0E1E8084199FF9F300C4B731 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HTKScrollingNavigation/HTKScrollingNavigation-Prefix.pch";
+				INFOPLIST_FILE = "HTKScrollingNavigation/HTKScrollingNavigation-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		0E1E8086199FF9F300C4B731 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HTKScrollingNavigation.app/HTKScrollingNavigation";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HTKScrollingNavigation/HTKScrollingNavigation-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "HTKScrollingNavigationTests/HTKScrollingNavigationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		0E1E8087199FF9F300C4B731 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HTKScrollingNavigation.app/HTKScrollingNavigation";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HTKScrollingNavigation/HTKScrollingNavigation-Prefix.pch";
+				INFOPLIST_FILE = "HTKScrollingNavigationTests/HTKScrollingNavigationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0E1E804B199FF9F300C4B731 /* Build configuration list for PBXProject "HTKScrollingNavigation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E1E8080199FF9F300C4B731 /* Debug */,
+				0E1E8081199FF9F300C4B731 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E1E8082199FF9F300C4B731 /* Build configuration list for PBXNativeTarget "HTKScrollingNavigation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E1E8083199FF9F300C4B731 /* Debug */,
+				0E1E8084199FF9F300C4B731 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E1E8085199FF9F300C4B731 /* Build configuration list for PBXNativeTarget "HTKScrollingNavigationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E1E8086199FF9F300C4B731 /* Debug */,
+				0E1E8087199FF9F300C4B731 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0E1E8048199FF9F300C4B731 /* Project object */;
+}
