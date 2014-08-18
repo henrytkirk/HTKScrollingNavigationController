@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.author             = { "Henry T Kirk" => "henrytkirk@gmail.com" }
   s.social_media_url   = "http://twitter.com/henrytkirk"
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/henrytkirk/HTKScrollingNavigationController.git", :commit => "fb2efae9236505df0758c81553568ec2791ced5c" }
+  s.source       = { :git => "https://github.com/henrytkirk/HTKScrollingNavigationController.git", :commit => "e853bc61bd78eb50e4a1cd89b28080521254c8e7" }
   s.source_files  = "HTKScrollingNavigationController/*.{h,m}"
   s.requires_arc = true
 end
