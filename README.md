@@ -23,17 +23,15 @@ HTKScrollingNavigationController *navController =  [[HTKScrollingNavigationContr
 // show "modally" using helper. (optional, but recommended)
     [navController showInParentViewController:self withDimmedBackground:YES];
     
-// Push
+// Push new controller
 UIViewController *sampleViewController = [[UIViewController alloc] init];
 [self.scrollingNavigationController pushViewController:sampleViewController animated:YES];
 
-// Pop
+// Pop existing controller
 [self.scrollingNavigationController popViewControllerAnimated:YES];
 
 // Dismiss (optional)
 [self.scrollingNavigationController dismissFromParentControllerAnimated:YES];
-
-
 ```
 
 ## Sample video:
