@@ -16,11 +16,24 @@ Scrolling navigation controller for iOS 7.x with slide-up transitions. It uses U
 ### Example usage:
 
 ```Objective-C
-    HTKSampleViewController *sampleController =  [[HTKSampleViewController alloc] init];
-    // pass sampleViewController as root
-    HTKScrollingNavigationController *navController =  [[HTKScrollingNavigationController alloc] initWithRootViewController:sampleController];
-    // show "modally" using helper.
+// Initial setup and presentation
+UIViewController *sampleController =  [[UIViewController alloc] init];
+// pass sampleViewController as root
+HTKScrollingNavigationController *navController =  [[HTKScrollingNavigationController alloc] initWithRootViewController:sampleController];
+// show "modally" using helper. (optional, but recommended)
     [navController showInParentViewController:self withDimmedBackground:YES];
+    
+// Push
+UIViewController *sampleViewController = [[UIViewController alloc] init];
+[self.scrollingNavigationController pushViewController:sampleViewController animated:YES];
+
+// Pop
+[self.scrollingNavigationController popViewControllerAnimated:YES];
+
+// Dismiss (optional)
+[self.scrollingNavigationController dismissFromParentControllerAnimated:YES];
+
+
 ```
 
 ## Sample video:
