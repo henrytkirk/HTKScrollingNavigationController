@@ -20,6 +20,7 @@
 
 #import "HTKScrollingNavigationController.h"
 #import "HTKScrollingNavigationCollectionViewLayout.h"
+#import "UIView+HTKFindFirstResponder.h"
 
 /**
  * Default animation duration
@@ -61,6 +62,16 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
 @property (nonatomic, getter = isScrolling) BOOL scrolling;
 
 /**
+ * If keyboard is present or not
+ */
+@property (nonatomic) BOOL keyboardInView;
+
+/**
+ * Amount that was adjusted for keyboard in view
+ */
+@property (nonatomic) CGFloat keyboardOffset;
+
+/**
  * Handles user tap on background
  */
 - (void)handleUserTapOnBackground:(UITapGestureRecognizer *)tapRecognizer;
@@ -77,6 +88,16 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
  */
 - (void)resetViewStackControllerArray;
 
+/**
+ * Handles notification when keyboard will show
+ */
+- (void)keyboardWillShow:(NSNotification *)notification;
+
+/**
+ * Handles notification when keyboard will hide
+ */
+- (void)keyboardWillHide:(NSNotification *)notification;
+
 @end
 
 @implementation HTKScrollingNavigationController
@@ -89,6 +110,10 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
         // add to stack, relayout
         rootViewController.scrollingNavigationController = self;
         [_viewControllerStackArray addObject:rootViewController];
+        
+        // register for keyboard notifications
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
 }
@@ -126,10 +151,14 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
     self.view.backgroundColor = [UIColor clearColor];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark Gesture actions
 
 - (void)handleUserTapOnBackground:(UITapGestureRecognizer *)tapRecognizer {
-
+    
     // don't respond if we're scrolling
     if (self.isScrolling) {
         return;
@@ -142,7 +171,11 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
         shouldPop = [self.scrollingNavigationDelegate shouldPopViewControllerOnBackgroundTap];
     }
     if (shouldPop) {
-        [self popViewControllerAnimated:YES];
+        UIViewController *poppedController = [self popViewControllerAnimated:YES];
+        // We're only view on stack, so we should close
+        if (!poppedController) {
+            [self dismissFromParentControllerAnimated:YES];
+        }
     }
 }
 
@@ -315,6 +348,20 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
 
 - (void)dismissFromParentControllerAnimated:(BOOL)animated {
     
+    // Completion block run after dismissal
+    void(^completionBlock)(void) = ^{
+        // reset our stack
+        [self resetViewStackControllerArray];
+        // cleanup
+        [self.view removeFromSuperview];
+        [self.viewControllerStackArray removeAllObjects];
+        [self removeFromParentViewController];
+        
+        if ([self.scrollingNavigationDelegate respondsToSelector:@selector(didDismissFromParentViewController:)]) {
+            [self.scrollingNavigationDelegate didDismissFromParentViewController:self];
+        }
+    };
+
     // get center cell
     NSIndexPath *indexPath = [self.view indexPathForItemAtPoint:self.view.center];
     UICollectionViewCell *cell = [self.view cellForItemAtIndexPath:indexPath];
@@ -329,21 +376,11 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
             self.view.contentOffset = offScreenOffset;
             self.view.alpha = 0.01;
         } completion:^(BOOL finished) {
-            // reset our stack
-            [self resetViewStackControllerArray];
-            // cleanup
-            [self.view removeFromSuperview];
-            [self.viewControllerStackArray removeAllObjects];
-            [self removeFromParentViewController];
+            completionBlock();
         }];
         
     } else {
-        // reset our stack
-        [self resetViewStackControllerArray];
-        // cleanup
-        [self.view removeFromSuperview];
-        [self.viewControllerStackArray removeAllObjects];
-        [self removeFromParentViewController];
+        completionBlock();
     }
 }
 
@@ -393,6 +430,57 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
         controller.scrollingNavigationController = nil;
         [controller removeFromParentViewController];
     }
+}
+
+#pragma mark - Keyboard
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    
+    if (self.keyboardInView) {
+        return;
+    }
+    
+    // set offset
+    self.keyboardOffset = 0;
+    NSUInteger offsetBuffer = 40;
+    
+    // Get the currently visible cell
+    CGPoint centerPoint = CGPointMake(self.view.center.x + self.view.contentOffset.x,self.view.center.y + self.view.contentOffset.y);
+    // determine indexPath of center
+    NSIndexPath *centerIndexPath = [self.view indexPathForItemAtPoint:centerPoint];
+    // get our cell
+    UICollectionViewCell *cell = [self.view cellForItemAtIndexPath:centerIndexPath];
+    
+    // get the size of the keyboard
+    CGRect keyboardFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    keyboardFrame = [self.view convertRect:keyboardFrame fromView:nil];
+    
+    // get our first responder
+    UIView *firstResponderView = [cell findFirstResponder];
+    if (!firstResponderView) {
+        return; // None found
+    }
+    CGRect responderFrame = [self.view convertRect:firstResponderView.frame fromView:cell];
+    
+    if (CGRectIntersectsRect(responderFrame, keyboardFrame)) {
+        // Move the frame up the difference in Y overlap
+        self.keyboardOffset = (CGRectGetMaxY(responderFrame) - CGRectGetMinY(keyboardFrame)) + offsetBuffer;
+        // Animate out of the way
+        [UIView animateWithDuration:0.3 animations:^{
+            self.view.contentOffset = CGPointMake(self.view.contentOffset.x, self.view.contentOffset.y + self.keyboardOffset);
+        } completion:^(BOOL __unused finished) {
+            self.keyboardInView = YES;
+        }];
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    // Animate back in place
+    [UIView animateWithDuration:0.3 animations:^{
+        self.view.contentOffset = CGPointMake(self.view.contentOffset.x, self.view.contentOffset.y - self.keyboardOffset);
+    } completion:^(BOOL __unused finished) {
+        self.keyboardInView = NO;
+    }];
 }
 
 @end

@@ -42,5 +42,8 @@ UIViewController *sampleViewController = [[UIViewController alloc] init];
 
 ![Sample Screenshot](http://htk-github.s3.amazonaws.com/HTKScrollingNavigationController_SS1.png)
 
+## Change log:
+v0.0.1: Initial project commit
+v0.0.2: Added in functionality so if a cell contains a UITextField, or UITextView, it will scroll up when keyboard is present so it is not covered.
 
 Questions? Email: henrytkirk@gmail.com or Web: http://www.henrytkirk.info
