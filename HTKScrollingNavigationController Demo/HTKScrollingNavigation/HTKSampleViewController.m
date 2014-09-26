@@ -37,7 +37,7 @@
     // randomly size and determine background color
     NSArray *bgColorArray = @[[UIColor redColor], [UIColor purpleColor], [UIColor orangeColor], [UIColor greenColor], [UIColor yellowColor], [UIColor whiteColor], [UIColor cyanColor], [UIColor magentaColor], [UIColor brownColor]];
     // set random color
-    self.view.backgroundColor = bgColorArray[arc4random_uniform(bgColorArray.count)];
+    self.view.backgroundColor = bgColorArray[arc4random_uniform((int)bgColorArray.count)];
     
     // add two buttons one for push, one for pop
     UIButton *pushButton = [UIButton buttonWithType:UIButtonTypeCustom];
