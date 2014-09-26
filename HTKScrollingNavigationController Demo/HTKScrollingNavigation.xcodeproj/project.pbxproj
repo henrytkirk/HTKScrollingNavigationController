@@ -24,6 +24,7 @@
 		0E1E809019A00B1F00C4B731 /* HTKScrollingNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E808C19A00B1F00C4B731 /* HTKScrollingNavigationController.m */; };
 		0E1E809119A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E808E19A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.m */; };
 		0E1E809419A00E4100C4B731 /* HTKSampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1E809319A00E4100C4B731 /* HTKSampleViewController.m */; };
+		0E3A3F8519D05AF3006FA4C1 /* UIView+HTKFindFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3A3F8419D05AF3006FA4C1 /* UIView+HTKFindFirstResponder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		0E1E808E19A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HTKScrollingNavigationControllerAdditions.m"; sourceTree = "<group>"; };
 		0E1E809219A00E4100C4B731 /* HTKSampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTKSampleViewController.h; sourceTree = "<group>"; };
 		0E1E809319A00E4100C4B731 /* HTKSampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTKSampleViewController.m; sourceTree = "<group>"; };
+		0E3A3F8319D05AF3006FA4C1 /* UIView+HTKFindFirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HTKFindFirstResponder.h"; sourceTree = "<group>"; };
+		0E3A3F8419D05AF3006FA4C1 /* UIView+HTKFindFirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HTKFindFirstResponder.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +176,8 @@
 				0E1E808C19A00B1F00C4B731 /* HTKScrollingNavigationController.m */,
 				0E1E808D19A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.h */,
 				0E1E808E19A00B1F00C4B731 /* UIViewController+HTKScrollingNavigationControllerAdditions.m */,
+				0E3A3F8319D05AF3006FA4C1 /* UIView+HTKFindFirstResponder.h */,
+				0E3A3F8419D05AF3006FA4C1 /* UIView+HTKFindFirstResponder.m */,
 			);
 			name = HTKScrollingNavigationController;
 			path = ../../HTKScrollingNavigationController;
@@ -282,6 +287,7 @@
 				0E1E8064199FF9F300C4B731 /* HTKAppDelegate.m in Sources */,
 				0E1E8060199FF9F300C4B731 /* main.m in Sources */,
 				0E1E809419A00E4100C4B731 /* HTKSampleViewController.m in Sources */,
+				0E3A3F8519D05AF3006FA4C1 /* UIView+HTKFindFirstResponder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
