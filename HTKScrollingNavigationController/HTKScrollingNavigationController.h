@@ -24,10 +24,17 @@
 
 @protocol HTKScrollingNavigationControllerDelegate <NSObject>
 
+@optional;
+
 /**
  * Return YES/NO if should pop that view controller when user taps on background. Default is YES.
  */
 - (BOOL)shouldPopViewControllerOnBackgroundTap;
+
+/**
+ * Called when the currently displayed viewController is about to pop off screen.
+ */
+- (void)willDismissViewController:(UIViewController *)viewController fromParentViewController:(HTKScrollingNavigationController *)scrollingNavigationController;
 
 /**
  * Called when dismissFromParentControllerAnimated: is called.

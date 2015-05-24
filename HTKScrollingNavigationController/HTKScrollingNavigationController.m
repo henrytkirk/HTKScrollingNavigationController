@@ -171,6 +171,11 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
         shouldPop = [self.scrollingNavigationDelegate shouldPopViewControllerOnBackgroundTap];
     }
     if (shouldPop) {
+        // notify delegate we're removing it from screen
+        if ([self.scrollingNavigationDelegate respondsToSelector:@selector(willDismissViewController:fromParentViewController:)]) {
+            UIViewController *controller = [self.viewControllerStackArray lastObject];
+            [self.scrollingNavigationDelegate willDismissViewController:controller fromParentViewController:self];
+        }
         UIViewController *poppedController = [self popViewControllerAnimated:YES];
         // We're only view on stack, so we should close
         if (!poppedController) {
@@ -338,7 +343,7 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
     offScreenOffset.y = -CGRectGetHeight([[UIScreen mainScreen] applicationFrame]);
     [self.view setContentOffset:offScreenOffset animated:NO];
 
-    [UIView animateWithDuration:HTKScrollingNavigationAnimationDuration*1.2 delay:0.15 usingSpringWithDamping:0.5 initialSpringVelocity:10 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:HTKScrollingNavigationAnimationDuration delay:0.10 usingSpringWithDamping:0.8 initialSpringVelocity:12 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut animations:^{
         self.view.contentOffset = CGPointZero;
         self.view.alpha = 1;
     } completion:^(BOOL finished) {
@@ -355,12 +360,18 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
         // cleanup
         [self.view removeFromSuperview];
         [self.viewControllerStackArray removeAllObjects];
+        [self willMoveToParentViewController:nil];
         [self removeFromParentViewController];
         
         if ([self.scrollingNavigationDelegate respondsToSelector:@selector(didDismissFromParentViewController:)]) {
             [self.scrollingNavigationDelegate didDismissFromParentViewController:self];
         }
     };
+
+    // notify delegate we're removing it from screen
+    if ([self.scrollingNavigationDelegate respondsToSelector:@selector(willDismissViewController:fromParentViewController:)]) {
+        [self.scrollingNavigationDelegate willDismissViewController:[self.viewControllerStackArray lastObject] fromParentViewController:self];
+    }
 
     // get center cell
     NSIndexPath *indexPath = [self.view indexPathForItemAtPoint:self.view.center];
@@ -428,6 +439,7 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
 - (void)resetViewStackControllerArray {
     for (UIViewController *controller in [self.viewControllerStackArray mutableCopy]) {
         controller.scrollingNavigationController = nil;
+        [controller willMoveToParentViewController:nil];
         [controller removeFromParentViewController];
     }
 }
