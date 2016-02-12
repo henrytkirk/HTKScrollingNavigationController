@@ -4,7 +4,7 @@ HTKScrollingNavigationController
 Scrolling navigation controller for iOS 7.x with slide-up transitions. It uses UICollectionView under the hood and currently supports vertical sliding.
 
 ## Adding to your project:
-### Cocoapods
+### CocoaPods
 
 [CocoaPods](http://cocoapods.org) is the recommended way to add HTKScrollingNavigationController to your project.
 
