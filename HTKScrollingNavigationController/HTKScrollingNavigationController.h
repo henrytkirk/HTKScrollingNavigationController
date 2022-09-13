@@ -29,7 +29,7 @@
 /**
  * Return YES/NO if should pop that view controller when user taps on background. Default is YES.
  */
-- (BOOL)shouldPopViewControllerOnBackgroundTap;
+- (BOOL)shouldPopViewControllerOnBackgroundTap:(UIViewController *)viewController;
 
 /**
  * Called when the currently displayed viewController is about to pop off screen.
@@ -42,6 +42,11 @@
 - (void)didDismissFromParentViewController:(HTKScrollingNavigationController *)scrollingNavigationController;
 
 @end
+
+/**
+ * Fire this notification if you need to refresh the currently displayed content.
+ */
+extern NSString* const HTKRefreshScrollingNavigationControllerContent;
 
 /**
  * A navigation controller which pushes and pops view controllers on and 
@@ -71,6 +76,12 @@
  * it will do nothing. Returns the view controller that was removed.
  */
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated;
+
+/**
+ * Refreshes the content currently being displayed. This would be necessary for macOS resizing, etc.
+ * This is also invoked when the 'HTKRefreshScrollingNavigationControllerContent' notification is posted.
+ */
+- (void)refreshContent;
 
 #pragma mark Presentation Helpers
 

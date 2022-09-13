@@ -39,6 +39,8 @@ static CGFloat HTKScrollingNavigationAnimationDuration = 0.5f;
 
 @end
 
+NSString *const HTKRefreshScrollingNavigationControllerContent = @"HTKRefreshScrollingNavigationControllerContent";;
+
 /**
  * Cell identifier
  */
@@ -70,6 +72,9 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
  * Amount that was adjusted for keyboard in view
  */
 @property (nonatomic) CGFloat keyboardOffset;
+
+/// Frame of the keyboard in view. CGRectZero if none in view.
+@property (nonatomic) CGRect keyboardFrame;
 
 /**
  * Handles user tap on background
@@ -110,10 +115,16 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
         // add to stack, relayout
         rootViewController.scrollingNavigationController = self;
         [_viewControllerStackArray addObject:rootViewController];
-        
         // register for keyboard notifications
+#if !TARGET_OS_TV
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshContent) name:HTKRefreshScrollingNavigationControllerContent object:nil];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        // Register for internal, hacky notification for when first responder changes.
+#warning TODO: Make this nicer and part of lib.
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:@"HTKFirstResponderChanged" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+#endif
     }
     return self;
 }
@@ -164,17 +175,30 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
         return;
     }
     
+    // Resign first responder if keyboard is present
+    // Get the currently visible cell
+    CGPoint centerPoint = CGPointMake(self.view.center.x + self.view.contentOffset.x,self.view.center.y + self.view.contentOffset.y);
+    // determine indexPath of center
+    NSIndexPath *centerIndexPath = [self.view indexPathForItemAtPoint:centerPoint];
+    UICollectionViewCell *cell = [self.view cellForItemAtIndexPath:centerIndexPath];
+    // get our first responder
+    UIView *firstResponderView = [cell findFirstResponder];
+    if (firstResponderView) {
+        [firstResponderView resignFirstResponder];
+        return;
+    }
+
     // default
     BOOL shouldPop = YES;
     // check if delegate responds
-    if ([self.scrollingNavigationDelegate respondsToSelector:@selector(shouldPopViewControllerOnBackgroundTap)]) {
-        shouldPop = [self.scrollingNavigationDelegate shouldPopViewControllerOnBackgroundTap];
+    UIViewController *controllerToPop = [self.viewControllerStackArray lastObject];
+    if ([self.scrollingNavigationDelegate respondsToSelector:@selector(shouldPopViewControllerOnBackgroundTap:)]) {
+        shouldPop = [self.scrollingNavigationDelegate shouldPopViewControllerOnBackgroundTap:controllerToPop];
     }
     if (shouldPop) {
         // notify delegate we're removing it from screen
         if ([self.scrollingNavigationDelegate respondsToSelector:@selector(willDismissViewController:fromParentViewController:)]) {
-            UIViewController *controller = [self.viewControllerStackArray lastObject];
-            [self.scrollingNavigationDelegate willDismissViewController:controller fromParentViewController:self];
+            [self.scrollingNavigationDelegate willDismissViewController:controllerToPop fromParentViewController:self];
         }
         UIViewController *poppedController = [self popViewControllerAnimated:YES];
         // We're only view on stack, so we should close
@@ -277,7 +301,14 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
     
     // add to cell
     [controller willMoveToParentViewController:self];
+
+    controller.view.translatesAutoresizingMaskIntoConstraints = NO;
     [cell addSubview:controller.view];
+    [controller.view.leadingAnchor constraintEqualToAnchor:cell.leadingAnchor constant:0].active = YES;
+    [controller.view.trailingAnchor constraintEqualToAnchor:cell.trailingAnchor constant:0].active = YES;
+    [controller.view.topAnchor constraintEqualToAnchor:cell.topAnchor constant:0].active = YES;
+    [controller.view.bottomAnchor constraintEqualToAnchor:cell.bottomAnchor constant:0].active = YES;
+    
     [controller didMoveToParentViewController:self];
         
     return cell;
@@ -286,12 +317,17 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
 #pragma mark HTKScrollingNavigationCollectionViewLayoutDelegate
 
 - (CGSize)sizeForViewControllerAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row > self.viewControllerStackArray.count - 1) {
+    if (!self.viewControllerStackArray.count || (indexPath.row > self.viewControllerStackArray.count - 1)) {
         return CGSizeZero; // Not found
     }
     // return actual size of the view
     UIViewController *controller = self.viewControllerStackArray[indexPath.row];
-    return controller.view.frame.size;
+    
+    if (CGSizeEqualToSize(controller.view.frame.size, CGSizeZero)) {
+        return [controller preferredContentSize];
+    } else {
+        return controller.view.frame.size;
+    }
 }
 
 #pragma mark UIScrollViewDelegate
@@ -315,6 +351,11 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
 }
 
 #pragma mark Presentation Helpers
+
+- (void)refreshContent {
+    HTKScrollingNavigationCollectionViewLayout *flowLayout = (HTKScrollingNavigationCollectionViewLayout *)self.view.collectionViewLayout;
+    [flowLayout invalidateLayout];
+}
 
 - (void)showInParentViewController:(UIViewController *)viewController  {
     [self showInParentViewController:viewController withDimmedBackground:NO];
@@ -340,7 +381,7 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
     [viewController.view layoutIfNeeded];
     
     CGPoint offScreenOffset = self.view.contentOffset;
-    offScreenOffset.y = -CGRectGetHeight([[UIScreen mainScreen] applicationFrame]);
+    offScreenOffset.y = -CGRectGetHeight([[UIScreen mainScreen] bounds]);
     [self.view setContentOffset:offScreenOffset animated:NO];
 
     [UIView animateWithDuration:HTKScrollingNavigationAnimationDuration delay:0.10 usingSpringWithDamping:0.8 initialSpringVelocity:12 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -354,17 +395,18 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
 - (void)dismissFromParentControllerAnimated:(BOOL)animated {
     
     // Completion block run after dismissal
+    __weak typeof(self) weakSelf = self;
     void(^completionBlock)(void) = ^{
         // reset our stack
-        [self resetViewStackControllerArray];
+        [weakSelf resetViewStackControllerArray];
         // cleanup
-        [self.view removeFromSuperview];
-        [self.viewControllerStackArray removeAllObjects];
-        [self willMoveToParentViewController:nil];
-        [self removeFromParentViewController];
+        [weakSelf.view removeFromSuperview];
+        [weakSelf.viewControllerStackArray removeAllObjects];
+        [weakSelf willMoveToParentViewController:nil];
+        [weakSelf removeFromParentViewController];
         
-        if ([self.scrollingNavigationDelegate respondsToSelector:@selector(didDismissFromParentViewController:)]) {
-            [self.scrollingNavigationDelegate didDismissFromParentViewController:self];
+        if ([weakSelf.scrollingNavigationDelegate respondsToSelector:@selector(didDismissFromParentViewController:)]) {
+            [weakSelf.scrollingNavigationDelegate didDismissFromParentViewController:weakSelf];
         }
     };
 
@@ -387,7 +429,9 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
             self.view.contentOffset = offScreenOffset;
             self.view.alpha = 0.01;
         } completion:^(BOOL finished) {
-            completionBlock();
+            if (finished) {
+                completionBlock();
+            }
         }];
         
     } else {
@@ -429,15 +473,17 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
         [UIView animateWithDuration:HTKScrollingNavigationAnimationDuration delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:3 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.view.contentOffset = CGPointMake(0, offSetY);
         } completion:^(BOOL finished) {
-            if (completionBlock) {
-                completionBlock(YES);
+            if (finished) {
+                if (completionBlock) {
+                    completionBlock(YES);
+                }
             }
         }];
     }];
 }
 
 - (void)resetViewStackControllerArray {
-    for (UIViewController *controller in [self.viewControllerStackArray mutableCopy]) {
+    for (UIViewController *controller in self.viewControllerStackArray) {
         controller.scrollingNavigationController = nil;
         [controller willMoveToParentViewController:nil];
         [controller removeFromParentViewController];
@@ -446,8 +492,9 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
 
 #pragma mark - Keyboard
 
+#if !TARGET_OS_TV
 - (void)keyboardWillShow:(NSNotification *)notification {
-    
+
     if (self.keyboardInView) {
         return;
     }
@@ -464,9 +511,9 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
     UICollectionViewCell *cell = [self.view cellForItemAtIndexPath:centerIndexPath];
     
     // get the size of the keyboard
-    CGRect keyboardFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    keyboardFrame = [self.view convertRect:keyboardFrame fromView:nil];
-    
+    self.keyboardFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.keyboardFrame = [self.view convertRect:self.keyboardFrame fromView:nil];
+
     // get our first responder
     UIView *firstResponderView = [cell findFirstResponder];
     if (!firstResponderView) {
@@ -474,9 +521,9 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
     }
     CGRect responderFrame = [self.view convertRect:firstResponderView.frame fromView:cell];
     
-    if (CGRectIntersectsRect(responderFrame, keyboardFrame)) {
+    if (CGRectIntersectsRect(responderFrame, self.keyboardFrame)) {
         // Move the frame up the difference in Y overlap
-        self.keyboardOffset = (CGRectGetMaxY(responderFrame) - CGRectGetMinY(keyboardFrame)) + offsetBuffer;
+        self.keyboardOffset = (CGRectGetMaxY(responderFrame) - CGRectGetMinY(self.keyboardFrame)) + offsetBuffer;
         // Animate out of the way
         [UIView animateWithDuration:0.3 animations:^{
             self.view.contentOffset = CGPointMake(self.view.contentOffset.x, self.view.contentOffset.y + self.keyboardOffset);
@@ -492,7 +539,9 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
         self.view.contentOffset = CGPointMake(self.view.contentOffset.x, self.view.contentOffset.y - self.keyboardOffset);
     } completion:^(BOOL __unused finished) {
         self.keyboardInView = NO;
+        self.keyboardFrame = CGRectZero;
     }];
 }
+#endif // !TARGET_OS_TV
 
 @end
