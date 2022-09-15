@@ -103,4 +103,8 @@ extern NSString* const HTKRefreshScrollingNavigationControllerContent;
  */
 - (void)dismissFromParentControllerAnimated:(BOOL)animated;
 
+/// Is a ViewController of the class provided presented or not to the user.
+/// Note: Presented means that it could be scrolled off-screen, and is part of the stack.
+- (BOOL)isViewControllerPresented:(Class)viewControllerClass;
+
 @end

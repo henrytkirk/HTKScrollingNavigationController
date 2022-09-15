@@ -439,6 +439,15 @@ static NSString *scrollingCellIdentifier = @"scrollingCellIdentifier";
     }
 }
 
+- (BOOL)isViewControllerPresented:(Class)viewControllerClass {
+    for (UIViewController *controller in [self.viewControllerStackArray copy]) {
+        if ([controller isKindOfClass:viewControllerClass]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 #pragma mark Helpers
 
 - (void)scrollToCellAtIndexPath:(NSIndexPath *)indexPath withCompletionBlock:(void (^)(BOOL finished))completionBlock {
